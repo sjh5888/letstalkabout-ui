@@ -56,34 +56,42 @@ function NewPostModal(props) {
             placeholder="Video URL"
             className="form-control"
           />
+          <br />
           {/* <input {...text('category')} placeholder="Category" className="form-control"/> */}
-          <Autocomplete //need to fix styling and then we good! https://github.com/reactjs/react-autocomplete
-            items={dummyData}
-            shouldItemRender={(item, value) =>
-              item.categoryName.toLowerCase().indexOf(value.toLowerCase()) > -1
-            }
-            getItemValue={item => item.categoryName}
-            renderItem={(item, highlighted) => (
-              <div
-                key={item.id}
-                style={{
-                  backgroundColor: highlighted ? "#eee" : "transparent"
-                }}
-              >
-                {item.categoryName}
-              </div>
-            )}
-            value={category}
-            onChange={e => {
-              updateCategory(e.target.value);
-              formState.values.category = e.target.value;
-            }}
-            onSelect={value => {
-              updateCategory(value);
-              formState.values.category = value;
-              console.log(value);
-            }}
-          />
+          <span style={{ width: "100%" }}>
+            <Autocomplete // https://github.com/reactjs/react-autocomplete
+              inputProps={{
+                className: "form-control",
+                placeholder: "Category"
+              }}
+              items={dummyData}
+              shouldItemRender={(item, value) =>
+                item.categoryName.toLowerCase().indexOf(value.toLowerCase()) >
+                -1
+              }
+              getItemValue={item => item.categoryName}
+              renderItem={(item, highlighted) => (
+                <div
+                  key={item.id}
+                  style={{
+                    backgroundColor: highlighted ? "#eee" : "transparent"
+                  }}
+                >
+                  {item.categoryName}
+                </div>
+              )}
+              value={category}
+              onChange={e => {
+                updateCategory(e.target.value);
+                formState.values.category = e.target.value;
+              }}
+              onSelect={value => {
+                updateCategory(value);
+                formState.values.category = value;
+                console.log(value);
+              }}
+            />
+          </span>
           {isSuccess ? (
             <span>
               <p style={{ color: "green" }}>Success!</p>
