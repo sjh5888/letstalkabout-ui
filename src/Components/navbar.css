@@ -1,12 +1,12 @@
-ul{
+.navinator{
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
   background-color:rgb(218, 10, 10);
 }
-li{
-  float: left;
+.navElement{
+  float:left;
 }
 li a{
   display: block;
