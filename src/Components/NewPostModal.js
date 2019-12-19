@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useFormState } from "react-use-form-state";
 import { Modal, Button } from "react-bootstrap";
-// import TextField from '@material-ui/core/TextField'
-// import Autocomplete from '@material-ui/lab/Autocomplete'
+import axios from "axios";
 import Autocomplete from "react-autocomplete";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
@@ -10,25 +9,41 @@ function NewPostModal(props) {
   const [formState, { text }] = useFormState();
   const [isSuccess, updateSuccess] = useState();
   const [category, updateCategory] = useState();
+  var categoryData = []; // seemes like categoryData needs to take an array of objects... so figure that out...
+    // const dummyData = [
+  //   { categoryName: "test1" },
+  //   { categoryName: "test2" },
+  //   { categoryName: "test40" },
+  //   { categoryName: "test41" }
+  // ];
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/categories')
+  .then(function (response) {
+    console.log(response);
+    categoryData = response.data
+  },[])
+  .catch(function (error) {
+    console.log(error);
+  });
+  console.log("loaded the thing!")
+  });
 
   const handleSubmit = e => {
-    // formState.values.category =
-    //axios logic here
-    // formState.clear()
-    updateSuccess(true);
     console.log("Values being submitted: " + JSON.stringify(formState.values));
-  };
-  const dummyData = [
-    { categoryName: "test1" },
-    { categoryName: "test2" },
-    { categoryName: "test40" },
-    { categoryName: "test41" }
-  ];
-  const handleChange = event => {
-    updateCategory(event.target.value);
+    axios
+      .post("http://localhost:8080/api/newThread", formState.values)
+      .then(function(response) {
+        console.log(response);
+        updateSuccess(true);
 
-    // console.log(category1)
+        formState.clear();
+        updateCategory("");
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   };
+
   const categoryState = <input {...text("category")} />;
   console.log(formState.values);
   return (
@@ -36,7 +51,6 @@ function NewPostModal(props) {
       <Modal.Header>
         <Modal.Title>New Post</Modal.Title>
       </Modal.Header>
-
       <Modal.Body>
         <form>
           <input
@@ -57,19 +71,18 @@ function NewPostModal(props) {
             className="form-control"
           />
           <br />
-          {/* <input {...text('category')} placeholder="Category" className="form-control"/> */}
           <span style={{ width: "100%" }}>
             <Autocomplete // https://github.com/reactjs/react-autocomplete
               inputProps={{
                 className: "form-control",
                 placeholder: "Category"
               }}
-              items={dummyData}
+              items={categoryData}
               shouldItemRender={(item, value) =>
                 item.categoryName.toLowerCase().indexOf(value.toLowerCase()) >
                 -1
               }
-              getItemValue={item => item.categoryName}
+              getItemValue={item => item.category}
               renderItem={(item, highlighted) => (
                 <div
                   key={item.id}
@@ -77,7 +90,7 @@ function NewPostModal(props) {
                     backgroundColor: highlighted ? "#eee" : "transparent"
                   }}
                 >
-                  {item.categoryName}
+                  {item.category}
                 </div>
               )}
               value={category}
