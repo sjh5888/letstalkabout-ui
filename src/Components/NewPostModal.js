@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { useFormState } from "react-use-form-state";
 import { Modal, Button } from "react-bootstrap";
-import axios from "axios";
+// import axios from "axios";
 import Autocomplete from "react-autocomplete";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import {getCategories, saveNewCategory, saveNewThread} from './AxiosUtil'
+
 
 function NewPostModal(props) {
   const [formState, { text }] = useFormState(); //sets state of form controls
   const [isSuccess, updateSuccess] = useState(); //flag for successful submission
   const [category, updateCategory] = useState(); //holds current value of autocomplete box
+  var categoryData = getCategories()
 
   const handleSubmit = e => {
     console.log("Values being submitted: " + JSON.stringify(formState.values));
@@ -17,28 +20,9 @@ function NewPostModal(props) {
       categoryImage: ""
     }
     console.log(newCat)
-    
-    axios.post("http://localhost:8080/api/saveCat", newCat)
-    .then(function (response) {
-      console.log(response);
-     
-      axios.post("http://localhost:8080/api/newThread", formState.values)
-      .then(function(response1) {
-        console.log(response1)
-        updateSuccess(true)
-
-        formState.clear()
-        updateCategory("")
-        props.getCategories()
-      })
-      .catch(function(error1) {
-        console.log(error1);
-      });
-  
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    saveNewCategory(newCat)
+    saveNewThread(formState, updateCategory, updateSuccess)
+    getCategories() //reload new categories
   }
     
   // eslint-disable-next-line
@@ -76,10 +60,9 @@ function NewPostModal(props) {
                 className: "form-control",
                 placeholder: "Category"
               }}
-              items={props.categoryData}
+              items={categoryData}
               shouldItemRender={(item, value) =>
-                item.category.toLowerCase().indexOf(value.toLowerCase()) >
-                -1
+                item.category.toLowerCase().indexOf(value.toLowerCase()) > -1
               }
               getItemValue={item => item.category}
               renderItem={(item, highlighted) => (

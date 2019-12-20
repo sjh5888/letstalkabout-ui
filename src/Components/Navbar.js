@@ -32,8 +32,6 @@ function Navbar(props) {
       <NewPostModal 
         show={modalOpen} 
         updateModal={updateModal} 
-        categoryData={props.categoryData}
-        getCategories={props.getCategories}
         />
     </div>
   );
