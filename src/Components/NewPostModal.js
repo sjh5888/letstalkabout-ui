@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useFormState } from "react-use-form-state";
 import { Modal, Button } from "react-bootstrap";
 import axios from "axios";
@@ -6,45 +6,43 @@ import Autocomplete from "react-autocomplete";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 function NewPostModal(props) {
-  const [formState, { text }] = useFormState();
-  const [isSuccess, updateSuccess] = useState();
-  const [category, updateCategory] = useState();
-  var categoryData = []; // seemes like categoryData needs to take an array of objects... so figure that out...
-    // const dummyData = [
-  //   { categoryName: "test1" },
-  //   { categoryName: "test2" },
-  //   { categoryName: "test40" },
-  //   { categoryName: "test41" }
-  // ];
-  useEffect(() => {
-    axios.get('http://localhost:8080/api/categories')
-  .then(function (response) {
-    console.log(response);
-    categoryData = response.data
-  },[])
-  .catch(function (error) {
-    console.log(error);
-  });
-  console.log("loaded the thing!")
-  });
+  const [formState, { text }] = useFormState(); //sets state of form controls
+  const [isSuccess, updateSuccess] = useState(); //flag for successful submission
+  const [category, updateCategory] = useState(); //holds current value of autocomplete box
 
   const handleSubmit = e => {
     console.log("Values being submitted: " + JSON.stringify(formState.values));
-    axios
-      .post("http://localhost:8080/api/newThread", formState.values)
-      .then(function(response) {
-        console.log(response);
-        updateSuccess(true);
+    var newCat = {
+      category: formState.values.category,
+      categoryImage: ""
+    }
+    console.log(newCat)
+    
+    axios.post("http://localhost:8080/api/saveCat", newCat)
+    .then(function (response) {
+      console.log(response);
+     
+      axios.post("http://localhost:8080/api/newThread", formState.values)
+      .then(function(response1) {
+        console.log(response1)
+        updateSuccess(true)
 
-        formState.clear();
-        updateCategory("");
+        formState.clear()
+        updateCategory("")
+        props.getCategories()
       })
-      .catch(function(error) {
-        console.log(error);
+      .catch(function(error1) {
+        console.log(error1);
       });
-  };
-
-  const categoryState = <input {...text("category")} />;
+  
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+    
+  // eslint-disable-next-line
+  const categoryStateBox = <input {...text("category")} />;
   console.log(formState.values);
   return (
     <Modal show={props.show}>
@@ -72,14 +70,15 @@ function NewPostModal(props) {
           />
           <br />
           <span style={{ width: "100%" }}>
+            
             <Autocomplete // https://github.com/reactjs/react-autocomplete
               inputProps={{
                 className: "form-control",
                 placeholder: "Category"
               }}
-              items={categoryData}
+              items={props.categoryData}
               shouldItemRender={(item, value) =>
-                item.categoryName.toLowerCase().indexOf(value.toLowerCase()) >
+                item.category.toLowerCase().indexOf(value.toLowerCase()) >
                 -1
               }
               getItemValue={item => item.category}

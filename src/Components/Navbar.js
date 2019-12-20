@@ -3,7 +3,7 @@ import "./navbar.css";
 
 import NewPostModal from "./NewPostModal";
 
-function Navbar() {
+function Navbar(props) {
   const [modalOpen, updateModal] = useState(false);
   console.log(modalOpen);
   return (
@@ -29,7 +29,12 @@ function Navbar() {
           </a>
         </li>
       </ul>
-      <NewPostModal show={modalOpen} updateModal={updateModal} />
+      <NewPostModal 
+        show={modalOpen} 
+        updateModal={updateModal} 
+        categoryData={props.categoryData}
+        getCategories={props.getCategories}
+        />
     </div>
   );
 }
