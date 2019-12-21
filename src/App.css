@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+}
+.column{
+  /* float: left; */
+  margin-top: 52px; /*this determines how far down the 3 columns are from the top */
+  display: flex;
+  height: 100%;
+}
+.left {
+  width: 25%;
+  height:100%;
+}
+.right {
+  width: 25%;
+  height:100%;
+}
+.middle{
+  width: 50%;
+  height:100%;
+  top: 85px;
+}
+/* .row:after {
+  content: "";
+  display: table;
+  clear: both;
+} */
+.row{
+  display:flex;
+  height: 100%;
+  overflow: hidden;
+}
