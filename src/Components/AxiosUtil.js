@@ -6,6 +6,7 @@ export function getCategories(){
   axios
       .get("http://localhost:8080/api/categories")
       .then(response => {
+
         console.log(response);
         console.log("getCategories works: "+ response.data.categories);
         console.log("loaded category data from backend.");

@@ -8,12 +8,14 @@ import {getCategories, saveNewCategory, saveNewThread} from './AxiosUtil'
 import { CategoryContext } from "./CategoryContext";
 
 
+
 function NewPostModal(props) {
   const [formState, { text }] = useFormState(); //sets state of form controls
   const [isSuccess, updateSuccess] = useState(); //flag for successful submission
   const [category, updateCategory] = useState(); //holds current value of autocomplete box
-  
+
   const categoryData = useContext(CategoryContext)
+
 
   const handleSubmit = e => {
     console.log("Values being submitted: " + JSON.stringify(formState.values));
@@ -30,6 +32,7 @@ function NewPostModal(props) {
   // eslint-disable-next-line
   const categoryStateBox = <input {...text("category")} />;
   console.log("formstate.values: " + JSON.stringify(formState.values))
+
   return (
     <Modal show={props.show}>
       <Modal.Header>

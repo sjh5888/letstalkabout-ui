@@ -9,6 +9,7 @@ function CardContainer() {
   return (
     <div className="paper">
       {categoryData.map(item => (<Card key={item} value={item} categoryImage={item.categoryImage} itemId={item.id}/>))}
+
     </div>
   );
 }

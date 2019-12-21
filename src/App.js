@@ -23,6 +23,7 @@ function App() {
   }else{
   return (
     <CategoryContext.Provider value={categories}>
+
     <div style={{height:"100%",overflow:"hidden"}}>
       <Navbar/>
       <div className="row">
@@ -31,10 +32,12 @@ function App() {
           <CardContainer/>
         </div>
         <div className="column right"></div>
+
       </div>
     </div>
     </CategoryContext.Provider>
   )
   }//else
+
 }
 export default App;
