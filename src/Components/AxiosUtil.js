@@ -1,4 +1,3 @@
-// import React from 'react'
 import axios from 'axios'
 
 export function getCategories(setCategories){
@@ -17,11 +16,12 @@ export function getCategories(setCategories){
         return []
       });
 }
-export function updateCategoryImage(obj){
+export function setCategoryImage(obj, setCategories){
   // console.log(obj.categoryId)
-  axios.post("http://localhost:8080/api/updateCategoryImage/" + obj.categoryId, obj)
+  axios.post("http://localhost:8080/api/setCategoryImage/" + obj.categoryId, obj)
       .then(function(response) {
         console.log(response)
+        getCategories(setCategories)
       })
       .catch(function(error) {
         console.log(error);

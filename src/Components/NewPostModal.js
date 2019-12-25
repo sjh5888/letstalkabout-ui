@@ -7,15 +7,12 @@ import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import {getCategories, saveNewCategory, saveNewThread} from './AxiosUtil'
 import { CategoryContext } from "./CategoryContext";
 
-
-
 function NewPostModal(props) {
   const [formState, { text }] = useFormState(); //sets state of form controls
   const [isSuccess, updateSuccess] = useState(); //flag for successful submission
   const [category, updateCategory] = useState(); //holds current value of autocomplete box
 
-  const categoryData = useContext(CategoryContext)
-
+  const {categories, setCategories} = useContext(CategoryContext) //accessing value passed from value prop in the provider tag within app.js
 
   const handleSubmit = e => {
     console.log("Values being submitted: " + JSON.stringify(formState.values));
@@ -24,9 +21,9 @@ function NewPostModal(props) {
       categoryImage: ""
     }
     console.log(newCat)
-    saveNewCategory(newCat)
+    saveNewCategory(newCat) //unecessary use of resources? even if the cat is already there, it still has to check?
     saveNewThread(formState, updateCategory, updateSuccess)
-    getCategories() //reload new categories
+    getCategories(setCategories) //reload new categories
   }
     
   // eslint-disable-next-line
@@ -65,7 +62,7 @@ function NewPostModal(props) {
                 className: "form-control",
                 placeholder: "Category"
               }}
-              items={categoryData}
+              items={categories}
               shouldItemRender={(item, value) =>
                 item.category.toLowerCase().indexOf(value.toLowerCase()) > -1
               }
