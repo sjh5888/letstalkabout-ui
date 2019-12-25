@@ -8,7 +8,7 @@ function Card(props){
   const handleClick = (e)=>{
     updateModalOpen(true)
   }
-  console.log(props.value.categoryImage)
+  // console.log(props.value.categoryImage)
   return(
     <div className="card"> 
       {props.categoryImage !== "" ? <img src={props.categoryImage} alt="" style={{width:"100%"}}/> :

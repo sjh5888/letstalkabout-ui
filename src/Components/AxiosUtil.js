@@ -1,7 +1,7 @@
 // import React from 'react'
 import axios from 'axios'
 
-export function getCategories(){
+export function getCategories(setCategories){
   console.log('getCategories in AxiosUtil being called')
   axios
       .get("http://localhost:8080/api/categories")
@@ -10,7 +10,7 @@ export function getCategories(){
         console.log(response);
         console.log("getCategories works: "+ response.data.categories);
         console.log("loaded category data from backend.");
-        return(response.data.categories)
+        setCategories(response.data.categories)
       })
       .catch(function(error) {
         console.log(error);
