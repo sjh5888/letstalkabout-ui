@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useFormState } from "react-use-form-state";
 import { Modal, Button } from "react-bootstrap";
-// import axios from "axios";
 import Autocomplete from "react-autocomplete";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import {getCategories, saveNewCategory, saveNewThread} from './AxiosUtil'
@@ -21,9 +20,7 @@ function NewPostModal(props) {
       categoryImage: ""
     }
     console.log(newCat)
-    saveNewCategory(newCat) //unecessary use of resources? even if the cat is already there, it still has to check?
-    saveNewThread(formState, updateCategory, updateSuccess)
-    getCategories(setCategories) //reload new categories
+    saveNewCategory(newCat, formState, updateCategory, updateSuccess, setCategories)
   }
     
   // eslint-disable-next-line

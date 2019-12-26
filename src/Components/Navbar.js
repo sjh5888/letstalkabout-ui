@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+// import {Link} from 'react-router-dom'
 import "./navbar.css";
 
 import NewPostModal from "./NewPostModal";
@@ -10,18 +11,18 @@ function Navbar(props) {
       <ul className="navinator">
         {/* Home is going to be a list of users or topics i think and categories is going to be the categories under a given user.  */}
         <li className="navElement">
-          <a href="#home">Let's Talk About...</a>
+          <a href="/">Let's Talk About...</a>
         </li>
         <li className="navElement">
-          <a href="#home">Home</a>
+          <a href="/">Home</a>
         </li>
         <li className="navElement">
-          <a href="#categories">Categories</a>
+          <a href="/profile">Profile</a>
         </li>
         <li style={{ float: "right" }}>
           <a
             className="active"
-            href="#newPost"
+            // href="#"
             onClick={e => updateModal(true)}
           >
             + New Post

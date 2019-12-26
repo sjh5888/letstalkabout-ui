@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import { getCategories } from "./Components/AxiosUtil";
 import Navbar from "./Components/Navbar";
-import CardContainer from "./Components/CardContainer";
+import Profile from "./Components/Profile";
+import Home from "./Components/Home";
 import { CategoryContext } from "./Components/CategoryContext";
 
 function App() {
   const [categories, setCategories] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  // const [shouldRerender, setShouldRerender] = useState(false);
 
   useEffect(() => {
     console.log("useEffect before calling get categories...");
@@ -20,16 +21,19 @@ function App() {
     return <p>Loading...</p>;
   } else {
     return (
-      <CategoryContext.Provider value={{categories, setCategories}}>
+      <CategoryContext.Provider value={{ categories, setCategories }}>
         <div style={{ height: "100%", overflow: "hidden" }}>
-          <Navbar />
-          <div className="row">
-            <div className="column left"></div>
-            <div className="column middle">
-              <CardContainer />
-            </div>
-            <div className="column right"></div>
-          </div>
+          <Router>
+            <Navbar />
+            <Switch>
+              <Route path="/profile">
+                <Profile />
+              </Route>
+              <Route path="/">
+                <Home />
+              </Route>
+            </Switch>
+          </Router>
         </div>
       </CategoryContext.Provider>
     );

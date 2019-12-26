@@ -2,7 +2,7 @@ import React, {useContext} from "react";
 import {CategoryContext} from './CategoryContext'
 import { useFormState } from "react-use-form-state";
 import { Modal, Button } from "react-bootstrap";
-import {setCategoryImage, getCategories} from './AxiosUtil' //call this function to submit to backend
+import {setCategoryImage} from './AxiosUtil' //call this function to submit to backend
 
 function ImageModal(props){
   const [formState, { text }] = useFormState();
@@ -12,9 +12,6 @@ function ImageModal(props){
     formState.values.category = props.catObject.category
     formState.values.categoryId = props.catObject.id
     setCategoryImage(formState.values, setCategories) //passes the new object and setCategories from context so that getCategories will trigger a rerender.
-    // console.log(formState.values)
-    console.log("getCategories is next...")
-    // getCategories(setCategories)
   }
   // eslint-disable-next-line
   const catBox = <input {...text('category')}  />
