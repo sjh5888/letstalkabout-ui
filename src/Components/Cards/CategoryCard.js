@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import ImageModal from "./ImageModal";
+import ImageModal from "../Modals/ImageModal";
 import { Link } from "react-router-dom";
-import "./card.css";
+import "../CSS/card.css";
 
 function CategoryCard(props) {
-  const [modalOpen, updateModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleClick = e => {
-    updateModalOpen(true);
+    setModalOpen(true);
   };
   // console.log(props.value.categoryImage)
   return (
@@ -24,15 +24,17 @@ function CategoryCard(props) {
           onClick={e => handleClick()}
         />
       )}
-      <div className="container">
-        <h4>
-          <b>{props.value.category}</b>
-        </h4>
-        <p>test</p>
-      </div>
+      <Link to={`/profile/threads/${props.category}`}>
+        <div className="container">
+          <h4>
+            <b>{props.value.category}</b>
+          </h4>
+          <p>test</p>
+        </div>
+      </Link>
       <ImageModal
         show={modalOpen}
-        updateModal={updateModalOpen}
+        setModalOpen={setModalOpen}
         catObject={props.value}
       />
     </div>

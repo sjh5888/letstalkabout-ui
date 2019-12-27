@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import "./card.css";
+import "../CSS/card.css";
 import CategoryCard from "./CategoryCard";
-import { CategoryContext } from "./CategoryContext";
+import { CategoryContext } from '../Context/CategoryContext'
 
 function CategoryCardContainer() {
   // const [isLoading, updateLoading] = useState(true)

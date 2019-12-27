@@ -25,15 +25,18 @@ export function getThreads(setThreads, category){
         setThreads([])
       });
 }
-export function setCategoryImage(obj, setCategories){
+export function setCategoryImage(obj, setCategories, setHasError, setModalOpen){
   // console.log(obj.categoryId)
-  axios.post("http://localhost:8080/api/setCategoryImage/" + obj.categoryId, obj)
+  axios.post("http://localhost:8080/api/setCategoryImage/" + obj.categoryId, obj)//get rid of the x
       .then(function(response) {
         console.log(response)
         getCategories(setCategories) //this is meant to avoid the asynchronousness of this action... save the data and then rerender the page with the new data!
+        setHasError(false)
+        setModalOpen(false)
       })
       .catch(function(error) {
-        console.log(error);
+        console.log('error' + error);
+        setHasError(true)
       });
 }
 export function saveNewCategory(newCat, formState, updateCategory, updateSuccess, setCategories){

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 // import {Link} from 'react-router-dom'
-import "./navbar.css";
-
-import NewPostModal from "./NewPostModal";
+import "./CSS/navbar.css";
+import NewPostModal from "./Modals/NewPostModal";
 
 function Navbar(props) {
   const [modalOpen, updateModal] = useState(false);

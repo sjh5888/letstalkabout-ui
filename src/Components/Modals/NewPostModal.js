@@ -2,9 +2,9 @@ import React, { useState, useContext } from "react";
 import { useFormState } from "react-use-form-state";
 import { Modal, Button } from "react-bootstrap";
 import Autocomplete from "react-autocomplete";
-import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import {getCategories, saveNewCategory, saveNewThread} from './AxiosUtil'
-import { CategoryContext } from "./CategoryContext";
+import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import {getCategories, saveNewCategory, saveNewThread} from '../Util/AxiosUtil'
+import { CategoryContext } from "../Context/CategoryContext";
 
 function NewPostModal(props) {
   const [formState, { text }] = useFormState(); //sets state of form controls

@@ -1,8 +1,8 @@
 .paper{
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   border-radius: 3px;
-  height: 100%;
+  height: 750px;
   width: 100%; 
   overflow: hidden;
   display:flex; /*inline cards */
@@ -35,4 +35,15 @@
 }
 .container{
   padding: 2px 16px;
+}
+a{
+  color: black;
+}
+a:hover{
+  text-decoration: none !important;
+  color: black;
+}
+a:visited{
+  text-decoration: none !important;
+  color: black;
 }

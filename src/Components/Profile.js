@@ -1,6 +1,6 @@
 import React from "react";
-import CategoryCardContainer from './CategoryCardContainer'
-import ThreadCardContainer from './ThreadCardContainer'
+import CategoryCardContainer from './Cards/CategoryCardContainer'
+import ThreadCardContainer from './Cards/ThreadCardContainer'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function Profile() {

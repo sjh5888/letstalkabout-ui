@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import ThreadCard from './ThreadCard'
-import './card.css'
-import {getThreads} from './AxiosUtil'
+import '../CSS/card.css'
+import {getThreads} from '../Util/AxiosUtil'
 import {useParams} from 'react-router-dom'
 
 function ThreadCardContainer(props){
