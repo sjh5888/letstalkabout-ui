@@ -41,7 +41,7 @@ function NewPostModal(props) {
           />
           <br />
           <input
-            {...text("title")}
+            {...text("threadTitle")}
             placeholder="Title"
             className="form-control"
           />

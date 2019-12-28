@@ -4,16 +4,16 @@ import '../CSS/card.css'
 
 function ChannelCard(props) {
   return (
-    <div className="card">
-      <Link to={`/`}> {/*fix path and route later*/}
-        <img src={props.channelImage} alt="" style={{ width: "100%" }} />
+    <div className="box card">
+      {/*<Link to={`/`}> fix path and route later*/}
+        <img src={props.channelImage} alt="" className="channelImage"/>
         <div className="container">
           <h4>
-            <b>{props.channelName}</b>
+            <b>{props.channelTitle}</b>
           </h4>
           <p>{props.channelSubscribers} Subscribers</p>
         </div>
-      </Link>
+      {/* </Link> */}
     </div>
   );
 }

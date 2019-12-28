@@ -1,49 +1,58 @@
-.paper{
-  box-shadow: 0 4px 12px 0 rgba(0,0,0,0.2);
+.paper {
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border-radius: 3px;
   height: 750px;
-  width: 100%; 
+  width: 100%;
   overflow: hidden;
-  display:flex; /*inline cards */
+  display: flex; /*inline cards */
   flex-wrap: wrap; /* wrap overflowing to line below */
   justify-content: space-around;
   /* padding: 20px; */
   background-color: rgba(255, 255, 255, 0.788);
 }
-.categoryCard{
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border-radius: 3px;
-  flex: 0 1 90%; /*last value (flex-basis) determines card width */
   margin: 10px;
 }
-.card{
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  border-radius: 3px;
-  flex: 0 1 40%; /*last value (flex-basis) determines card width */
-  margin: 10px;
-  /* padding: 4px 8px; */
+.rectangle {
+  display: flex;
+  flex-direction: row;
+}
+.box {
+  flex: 0 1 25%; /*last value (flex-basis) determines card width */
+  height: 350px;
 }
 /* .card + .card {
   margin: 0 0 0 16px;
  } */
-.card:hover{
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
-.container{
+.container {
   padding: 2px 16px;
 }
-a{
+a {
   color: black;
 }
-a:hover{
+a:hover {
   text-decoration: none !important;
   color: black;
 }
-a:visited{
+a:visited {
   text-decoration: none !important;
   color: black;
+}
+.channelImage{
+  display: block;
+  width: 100%;
+  height: 70%;
+}
+.threadImage{
+  display: block;
+  width: 150px;
+  height: 150px;
 }

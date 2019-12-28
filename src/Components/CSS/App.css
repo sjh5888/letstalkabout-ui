@@ -4,14 +4,6 @@
 .column{
   margin-top: 52px; /*this determines how far down the 3 columns are from the top */
 }
-.left {
-  width: 24%;
-  height:100%;
-}
-.right {
-  width: 24%;
-  height:100%;
-}
 .middle{
   width: 50%;
   height:100%;
@@ -26,14 +18,13 @@
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   border-radius: 3px;
-  height: 750px;
   width: 100%; 
   flex-wrap: wrap; /* wrap overflowing to line below */
   justify-content: space-around;
-  /* padding: 20px; */
+  padding: 5px 20px;
   background-color: rgba(255, 255, 255, 0.788);
 }
-h2{
-  padding: 5px 10px;
+.feedContainer h2{ /* this syntax will only style h2s located in feedcontainer */
+  padding: 5px 15px;
   text-align: left;
 }

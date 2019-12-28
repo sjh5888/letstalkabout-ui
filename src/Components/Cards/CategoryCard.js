@@ -11,7 +11,7 @@ function CategoryCard(props) {
   };
   // console.log(props.value.categoryImage)
   return (
-    <div className="card">
+    <div className="box card">
       {props.categoryImage !== "" ? (
         <Link to={`/profile/threads/${props.category}`}>
           <img src={props.categoryImage} alt="" style={{ width: "100%" }} />
