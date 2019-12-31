@@ -41,7 +41,7 @@ function ImageModal(props) {
         <Button variant="primary" onClick={e => handleSubmit(e)}>
           Submit
         </Button>
-        <Button variant="secondary" onClick={e => props.updateModal(false)}>
+        <Button variant="secondary" onClick={e => props.setModalOpen(false)}>
           Close
         </Button>
       </Modal.Footer>

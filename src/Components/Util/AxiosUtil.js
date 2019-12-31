@@ -1,4 +1,7 @@
 import axios from 'axios'
+import { useHistory } from 'react-router-dom';
+
+const endpoint = "http://localhost:8080/api"
 
 export function getCategories(setCategories){
   console.log('getCategories in AxiosUtil being called')
@@ -53,13 +56,38 @@ export function saveNewCategory(newCat, formState, updateCategory, updateSuccess
 }
 export function saveNewThread(formState, updateCategory, updateSuccess){
   axios.post("http://localhost:8080/api/newThread", formState.values)
-      .then(function(response1) {
-        console.log(response1)
+      .then(function(response) {
+        console.log(response)
         updateSuccess(true)
         formState.clear()
         updateCategory("")
       })
-      .catch(function(error1) {
-        console.log(error1);
+      .catch(function(error) {
+        console.log(error);
+      });
+}
+export function checkForDuplicates(username, setIsTaken){
+  console.log('checking duplicates ' + username)
+  axios.get(endpoint + "/checkForDuplicates/"+ username)
+  .then(function(response){
+    console.log(response)
+    response.data.isPresent == 'true' ? setIsTaken(true) : setIsTaken(false)
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
+}
+export function saveNewUser(formState, history){
+  console.log("submitting")
+  axios.post(endpoint + "/register", formState.values)
+      .then(function(response) {
+        console.log(response)
+        history.push("/success")
+        // updateSuccess(true)
+        // formState.clear()
+      })
+      .catch(function(error) {
+        console.log(error);
+        // updateSuccess(false)
       });
 }

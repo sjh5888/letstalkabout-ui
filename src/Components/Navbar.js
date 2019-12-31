@@ -27,6 +27,9 @@ function Navbar(props) {
             + New Post
           </a>
         </li>
+        <li className="navElement" style={{ float: "right" }}>
+          <a href="/login">Login</a>
+        </li>
       </ul>
       <NewPostModal 
         show={modalOpen} 
