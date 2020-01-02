@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useFormState } from "react-use-form-state";
 import { Button } from "react-bootstrap";
-import { saveNewUser, checkForDuplicates } from "./Util/AxiosUtil";
+import { saveNewUser, checkForDuplicates } from "./Util/AxiosUtilUnauth";
 import { useHistory } from "react-router-dom";
-//TODO: Add validation for security
+
 function Register() {
   const [formState, { text, password, email, checkbox }] = useFormState();
   const [isTaken, setIsTaken] = useState(false);
-  // const [wasSuccess, updateSuccess] = useState();
   let history = useHistory();
 
   const handleSubmit = e => {

@@ -10,7 +10,6 @@ function NewPostModal(props) {
   const [formState, { text }] = useFormState(); //sets state of form controls
   const [isSuccess, updateSuccess] = useState(); //flag for successful submission
   const [category, updateCategory] = useState(); //holds current value of autocomplete box
-
   const {categories, setCategories} = useContext(CategoryContext) //accessing value passed from value prop in the provider tag within app.js
 
   const handleSubmit = e => {

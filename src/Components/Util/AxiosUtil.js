@@ -1,11 +1,29 @@
 import axios from 'axios'
-import { useHistory } from 'react-router-dom';
-
+// axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('jwt');
 const endpoint = "http://localhost:8080/api"
+
+/*
+axios.post('https://example.com/postSomething', {
+ email: varEmail, //varEmail is a variable which holds the email
+ password: varPassword
+},
+{
+  headers: {
+    Authorization: 'Bearer ' + varToken
+  }
+})
+
+axios.get('https://example.com/getSomething', {
+ headers: {
+   Authorization: 'Bearer ' + token //the token is a variable which holds the token
+ }
+})
+*/
 
 export function getCategories(setCategories){
   console.log('getCategories in AxiosUtil being called')
-  axios.get("http://localhost:8080/api/categories")
+  axios.get(endpoint + "/categories",{
+    headers: {Authorization: 'Bearer ' + "idk"}}) //fix this!
       .then(response => {
         console.log(response);
         console.log("loaded category data from backend.");
@@ -17,7 +35,7 @@ export function getCategories(setCategories){
       });
 }
 export function getThreads(setThreads, category){
-  axios.get("http://localhost:8080/api/getThreads/" + category)
+  axios.get(endpoint + "/getThreads/" + category)
       .then(response => {
         console.log(response);
         console.log("loaded threads of category " + category + "from backend.");
@@ -30,7 +48,7 @@ export function getThreads(setThreads, category){
 }
 export function setCategoryImage(obj, setCategories, setHasError, setModalOpen){
   // console.log(obj.categoryId)
-  axios.post("http://localhost:8080/api/setCategoryImage/" + obj.categoryId, obj)//get rid of the x
+  axios.post(endpoint + "/setCategoryImage/" + obj.categoryId, obj)//get rid of the x
       .then(function(response) {
         console.log(response)
         getCategories(setCategories) //this is meant to avoid the asynchronousness of this action... save the data and then rerender the page with the new data!
@@ -43,7 +61,7 @@ export function setCategoryImage(obj, setCategories, setHasError, setModalOpen){
       });
 }
 export function saveNewCategory(newCat, formState, updateCategory, updateSuccess, setCategories){
-  axios.post("http://localhost:8080/api/saveCat", newCat)
+  axios.post(endpoint + "/saveCat", newCat)
     .then(function (response) {
       console.log(response); 
       saveNewThread(formState, updateCategory, updateSuccess)
@@ -55,7 +73,7 @@ export function saveNewCategory(newCat, formState, updateCategory, updateSuccess
     });
 }
 export function saveNewThread(formState, updateCategory, updateSuccess){
-  axios.post("http://localhost:8080/api/newThread", formState.values)
+  axios.post(endpoint + "/newThread", formState.values)
       .then(function(response) {
         console.log(response)
         updateSuccess(true)
@@ -64,30 +82,5 @@ export function saveNewThread(formState, updateCategory, updateSuccess){
       })
       .catch(function(error) {
         console.log(error);
-      });
-}
-export function checkForDuplicates(username, setIsTaken){
-  console.log('checking duplicates ' + username)
-  axios.get(endpoint + "/checkForDuplicates/"+ username)
-  .then(function(response){
-    console.log(response)
-    response.data.isPresent == 'true' ? setIsTaken(true) : setIsTaken(false)
-  })
-  .catch(function(error) {
-    console.log(error);
-  });
-}
-export function saveNewUser(formState, history){
-  console.log("submitting")
-  axios.post(endpoint + "/register", formState.values)
-      .then(function(response) {
-        console.log(response)
-        history.push("/success")
-        // updateSuccess(true)
-        // formState.clear()
-      })
-      .catch(function(error) {
-        console.log(error);
-        // updateSuccess(false)
       });
 }
