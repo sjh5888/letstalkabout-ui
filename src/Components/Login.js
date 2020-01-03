@@ -7,7 +7,7 @@ import { LoginContext } from './Context/LoginContext'
 import "./CSS/login.css";
 
 function Login() {
-  const {jwt, setJwt, isJwtValid} = useContext(LoginContext)
+  const {jwt, setJwt} = useContext(LoginContext)
   const [formState, { text, password }] = useFormState();
   let history = useHistory();
   let location = useLocation();
@@ -16,7 +16,7 @@ function Login() {
 
   const login = e => {
     console.log("submitting... " + JSON.stringify(formState.values));
-    loginUser(formState, setJwt, history, from); //pass these values to the authenticate function
+    loginUser(formState, setJwt, history, from, e); //pass these values to the authenticate function
   };
   console.log(formState.values);
   return (

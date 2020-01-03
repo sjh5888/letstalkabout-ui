@@ -26,7 +26,8 @@ export function saveNewUser(formState, history) {
       console.log(error);
     });
 }
-export function loginUser(formState, setJwt, history, from) {
+export function loginUser(formState, setJwt, history, from, e) {
+  e.preventDefault()
   console.log("authenticating...");
   axios
     .post(endpoint + "/authenticate", formState.values)
@@ -40,27 +41,28 @@ export function loginUser(formState, setJwt, history, from) {
       console.log(error);
     });
 }
-export function verifyJwt(jwt, setIsJwtValid, isJwtValid) {
-  console.log("verifying jwt");
-  console.log('JWT: ' + jwt);
-  axios
-    .post(endpoint + "/verifyJwt", jwt)
-    .then(function(response) {
-      console.log(response);
+// export function verifyJwt(jwt, setIsJwtValid) {
+//   console.log("verifying jwt");
+//   console.log('JWT: ' + jwt);
+//   axios
+//     .post(endpoint + "/verifyJwt", jwt)
+//     .then(function(response) {
+//       console.log(response);
 
-      if (response.status == 200) {
-        setIsJwtValid(true);
-        // history.push("/");
-      } else {
-        setIsJwtValid(false);
-        // history.push("/login")
-      }
-      console.log("is it valid? " + isJwtValid)
-    })
-    .catch(function(error) {
-      console.log(error);
-      setIsJwtValid(false);
-      // history.push("/login")
-      console.log("errored out...  " + isJwtValid)
-    });
-}
+//       if (response.status == 200) {
+//         setIsJwtValid(true);
+//         // return true
+//         // console.log(isJwtValid)
+//       } else {
+//         setIsJwtValid(false);
+//         // return false
+//       }
+//       // console.log("is it valid? " + isJwtValid)
+//     })
+//     .catch(function(error) {
+//       console.log(error);
+//       setIsJwtValid(false);
+//       // return false
+//       // console.log("errored out...  " + isJwtValid)
+//     });
+// }

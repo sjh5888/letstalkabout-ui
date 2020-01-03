@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,7 +9,6 @@ import {
 } from "react-router-dom";
 import "./Components/CSS/App.css";
 import { getCategories } from "./Components/Util/AxiosUtil";
-import { verifyJwt } from "./Components/Util/AxiosUtilUnauth";
 import Navbar from "./Components/Navbar";
 import Profile from "./Components/Profile";
 import Home from "./Components/Home";
@@ -23,8 +23,6 @@ function App() {
   const [categories, setCategories] = useState([]);
   const [isLoading, setLoading] = useState(false); //change the place where this is defined and manipulated.
   const [jwt, setJwt] = useState(null);
-  const [isJwtValid, setIsJwtValid] = useState(false);
-  // const history = useHistory();
 
   // useEffect(() => {
   //   console.log("useEffect before calling get categories...");
@@ -32,26 +30,20 @@ function App() {
   //   setLoading(false);
   // }, []);
 
-  useEffect(() => {
-    //before rendering anything verify jwt
-    verifyJwt(jwt, setIsJwtValid, isJwtValid);
-    console.log("Jwt: " + JSON.stringify(jwt) + " is valid? " + isJwtValid);
-  }, [jwt, isJwtValid]);
-
   function PrivateRoute({ children, ...rest }) {
+    console.log("Is jwt null? " + JSON.stringify(jwt));
     return (
-      <Route //1. this is hit first when "/" is input...
+      //1. this is hit first when a protected route is input...
+      <Route
         {...rest}
         render={({ location }) =>
-          isJwtValid ? (
+          //2. redirect to login page with state transferred to that function
+          //2. this saves the intended proteceted page
+
+          jwt !== null ? (
             children
           ) : (
-            <Redirect //2. redirect to login page with state transferred to that function
-              to={{
-                pathname: "/login",
-                state: { from: location } //2. this saves the intended page ("/")
-              }}
-            />
+            <Redirect to={{ pathname: "/login", state: { from: location } }} />
           )
         }
       />
@@ -62,7 +54,7 @@ function App() {
     return <p>Loading...</p>;
   } else {
     return (
-      <LoginContext.Provider value={{ jwt, setJwt, isJwtValid }}>
+      <LoginContext.Provider value={{ jwt, setJwt }}>
         <div style={{ height: "100%", overflow: "hidden" }}>
           <Router>
             <Switch>
