@@ -1,35 +1,20 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Redirect } from "react-router-dom";
-import { LoginContext } from "./Context/LoginContext";
-import axios from "axios";
+import jsonwebtoken from 'jsonwebtoken'
 import "./CSS/navbar.css";
 import NewPostModal from "./Modals/NewPostModal";
+import { CategoryContext } from "./Context/CategoryContext";
 
-function Navbar(props) {
-  const { jwt, setJwt } = useContext(LoginContext);
+function Navbar() {
+  // const { categories, setCategories, jwt } = useContext(CategoryContext);
   const [modalOpen, updateModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);  
+  const jwtDecoded = jsonwebtoken.decode(localStorage.getItem('jwt'))
+  
+  console.log("is token valid? " + (jwtDecoded.exp > (Date.now()-(Date.now()%1000))/1000))
+  console.log(jwtDecoded)
 
-  const verifyJwt = jwt => {
-    console.log("verifying jwt");
-    console.log("JWT: " + jwt);
-    axios
-      .post("http://localhost:8080/api/verifyJwt", jwt)
-      .then(function(response) {
-        console.log(response);
-
-        if (response.status == 200) {
-          return true;
-        } else {
-          return false;
-        }
-      })
-      .catch(function(error) {
-        console.log(error);
-        return false;
-      });
-  };
-
-  if (verifyJwt) {
+  if (jwtDecoded.exp > (Date.now()-(Date.now()%1000))/1000){
     return (
       <div>
         <ul className="navinator">
@@ -59,10 +44,13 @@ function Navbar(props) {
         <NewPostModal show={modalOpen} updateModal={updateModal} />
       </div>
     );
+    
   } else {
     console.log("redirecting");
     return <Redirect to={{ pathname: "/login", state: { from: "/" } }} />;
   }
+  
+
 } //class
 
 export default Navbar;

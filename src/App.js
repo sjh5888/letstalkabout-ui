@@ -21,8 +21,8 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [categories, setCategories] = useState([]);
-  const [isLoading, setLoading] = useState(false); //change the place where this is defined and manipulated.
-  const [jwt, setJwt] = useState(null);
+  const [isLoading, setLoading] = useState(null); //change the place where this is defined and manipulated.
+  const [jwt, setJwt] = useState({ jwt: localStorage.getItem("jwt") });
 
   // useEffect(() => {
   //   console.log("useEffect before calling get categories...");
@@ -40,7 +40,7 @@ function App() {
           //2. redirect to login page with state transferred to that function
           //2. this saves the intended proteceted page
 
-          jwt !== null ? (
+          jwt.jwt !== null ? (
             children
           ) : (
             <Redirect to={{ pathname: "/login", state: { from: location } }} />
@@ -54,13 +54,14 @@ function App() {
     return <p>Loading...</p>;
   } else {
     return (
-      <LoginContext.Provider value={{ jwt, setJwt }}>
-        <div style={{ height: "100%", overflow: "hidden" }}>
+      <div style={{ height: "100%", overflow: "hidden" }}>
+        <LoginContext.Provider value={{ jwt, setJwt }}> {/*Context is necessary here in order to trigger a rerender whem jwt is updated at Login... otherwise the jwt will be set, but the jwt state in app will not be updated */}
           <Router>
             <Switch>
               <Route path="/login">
                 <Login />
               </Route>
+
               <Route path="/register">
                 <Register />
               </Route>
@@ -80,8 +81,8 @@ function App() {
               </CategoryContext.Provider>
             </Switch>
           </Router>
-        </div>
-      </LoginContext.Provider>
+        </LoginContext.Provider>
+      </div>
     );
   } //else
 }
